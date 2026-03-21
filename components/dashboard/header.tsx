@@ -1,6 +1,8 @@
 "use client"
 
-import { Bell, Search, User, Sun, Moon } from "lucide-react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Bell, Search, User, Home, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -18,6 +20,7 @@ interface DashboardHeaderProps {
   subtitle?: string
   alertCount?: number
   showSearch?: boolean
+  showNavigation?: boolean
   className?: string
 }
 
@@ -26,18 +29,50 @@ export function DashboardHeader({
   subtitle,
   alertCount = 0,
   showSearch = true,
+  showNavigation = true,
   className,
 }: DashboardHeaderProps) {
+  const router = useRouter()
+
   return (
     <header className={cn(
       "flex items-center justify-between px-6 py-4 bg-card border-b",
       className
     )}>
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-        {subtitle && (
-          <p className="text-sm text-muted-foreground">{subtitle}</p>
+      <div className="flex items-center gap-4">
+        {/* Navigation Buttons */}
+        {showNavigation && (
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.back()}
+              className="h-9 w-9"
+              title="Go Back"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span className="sr-only">Go Back</span>
+            </Button>
+            <Link href="/">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9"
+                title="Go to Home"
+              >
+                <Home className="h-4 w-4" />
+                <span className="sr-only">Go to Home</span>
+              </Button>
+            </Link>
+          </div>
         )}
+        
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+          {subtitle && (
+            <p className="text-sm text-muted-foreground">{subtitle}</p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-3">

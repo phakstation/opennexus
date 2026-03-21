@@ -18,6 +18,7 @@ import {
   ArrowRight,
   ArrowLeft,
   Shield,
+  Home,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -83,10 +84,21 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex flex-col">
       {/* Header */}
       <header className="p-4">
-        <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => window.history.back()}
+            className="h-9 w-9"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span className="sr-only">Go Back</span>
+          </Button>
+          <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <Home className="h-4 w-4" />
+            Home
+          </Link>
+        </div>
       </header>
 
       {/* Main Content */}

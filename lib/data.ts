@@ -239,3 +239,168 @@ export const DISEASE_INCIDENCE_DATA = [
   { month: "Dec", tb: 248, malaria: 225, hypertension: 475, diabetes: 428 },
   { month: "Jan", tb: 255, malaria: 210, hypertension: 488, diabetes: 440 },
 ]
+
+// ============================================
+// MEDICINE DISPENSING & TRACKING SYSTEM
+// ============================================
+
+// Medicine-to-Condition Mapping (Treatment-Condition Dataset)
+export const MEDICINE_CONDITION_MAP: Record<string, { conditions: string[]; programme: string }> = {
+  "Rifampicin": { conditions: ["Tuberculosis"], programme: "TB" },
+  "Isoniazid": { conditions: ["Tuberculosis"], programme: "TB" },
+  "Pyrazinamide": { conditions: ["Tuberculosis"], programme: "TB" },
+  "Ethambutol": { conditions: ["Tuberculosis"], programme: "TB" },
+  "Rifampicin/Isoniazid FDC": { conditions: ["Tuberculosis"], programme: "TB" },
+  "Artemether-Lumefantrine": { conditions: ["Malaria"], programme: "Malaria" },
+  "Quinine Sulphate": { conditions: ["Malaria"], programme: "Malaria" },
+  "Artesunate": { conditions: ["Malaria", "Severe Malaria"], programme: "Malaria" },
+  "Sulfadoxine-Pyrimethamine": { conditions: ["Malaria Prevention"], programme: "Malaria" },
+  "Metformin": { conditions: ["Diabetes Type 2"], programme: "NCD" },
+  "Amlodipine": { conditions: ["Hypertension"], programme: "NCD" },
+  "Enalapril": { conditions: ["Hypertension", "Heart Failure"], programme: "NCD" },
+  "Hydrochlorothiazide": { conditions: ["Hypertension"], programme: "NCD" },
+  "Atenolol": { conditions: ["Hypertension", "Angina"], programme: "NCD" },
+}
+
+// Dispensing Record
+export interface DispensingRecord {
+  id: string
+  medicineId: string
+  medicineName: string
+  quantity: number
+  date: string
+  facilityId: string
+  facilityName: string
+  district: District
+  dispensingStaffId: string
+  dispensingStaffName: string
+  prescriptionId?: string
+  patientEncounterId?: string
+  patientId?: string
+  programme: string
+  batchNumber: string
+  expiryDate: string
+}
+
+// Mock dispensing records
+export const DISPENSING_RECORDS: DispensingRecord[] = [
+  { id: "D-001", medicineId: "1", medicineName: "Rifampicin 150mg", quantity: 60, date: "2024-01-15", facilityId: "F-001", facilityName: "Princess Marina Hospital", district: "South-East", dispensingStaffId: "S-001", dispensingStaffName: "Nurse K. Modise", prescriptionId: "RX-4521", patientEncounterId: "E-1001", patientId: "P-001", programme: "TB", batchNumber: "BT-2024-001", expiryDate: "2025-06-15" },
+  { id: "D-002", medicineId: "8", medicineName: "Metformin 500mg", quantity: 90, date: "2024-01-15", facilityId: "F-003", facilityName: "Maun General Hospital", district: "North-West", dispensingStaffId: "S-015", dispensingStaffName: "Nurse T. Mogapi", prescriptionId: "RX-4522", patientEncounterId: "E-1002", patientId: "P-002", programme: "NCD", batchNumber: "BT-2024-045", expiryDate: "2025-03-20" },
+  { id: "D-003", medicineId: "5", medicineName: "Artemether-Lumefantrine", quantity: 24, date: "2024-01-15", facilityId: "F-003", facilityName: "Maun General Hospital", district: "North-West", dispensingStaffId: "S-015", dispensingStaffName: "Nurse T. Mogapi", prescriptionId: "RX-4523", patientEncounterId: "E-1003", programme: "Malaria", batchNumber: "BT-2024-089", expiryDate: "2024-12-01" },
+  { id: "D-004", medicineId: "3", medicineName: "Pyrazinamide 500mg", quantity: 30, date: "2024-01-14", facilityId: "F-004", facilityName: "Tsabong Primary Hospital", district: "Kgalagadi", dispensingStaffId: "S-022", dispensingStaffName: "Nurse M. Seipei", prescriptionId: "RX-4520", patientEncounterId: "E-1004", patientId: "P-003", programme: "TB", batchNumber: "BT-2024-012", expiryDate: "2025-01-10" },
+  { id: "D-005", medicineId: "9", medicineName: "Amlodipine 5mg", quantity: 30, date: "2024-01-14", facilityId: "F-006", facilityName: "Kanye Main Hospital", district: "Southern", dispensingStaffId: "S-030", dispensingStaffName: "Nurse B. Phiri", prescriptionId: "RX-4519", patientEncounterId: "E-1005", programme: "NCD", batchNumber: "BT-2024-067", expiryDate: "2025-08-22" },
+  { id: "D-006", medicineId: "5", medicineName: "Artemether-Lumefantrine", quantity: 48, date: "2024-01-14", facilityId: "F-003", facilityName: "Maun General Hospital", district: "North-West", dispensingStaffId: "S-016", dispensingStaffName: "Nurse L. Mokgethi", programme: "Malaria", batchNumber: "BT-2024-089", expiryDate: "2024-12-01" },
+  { id: "D-007", medicineId: "1", medicineName: "Rifampicin 150mg", quantity: 120, date: "2024-01-13", facilityId: "F-002", facilityName: "Nyangabgwe Referral Hospital", district: "Central", dispensingStaffId: "S-008", dispensingStaffName: "Nurse G. Tsheko", prescriptionId: "RX-4515", patientEncounterId: "E-1006", programme: "TB", batchNumber: "BT-2024-001", expiryDate: "2025-06-15" },
+  { id: "D-008", medicineId: "6", medicineName: "Quinine Sulphate 300mg", quantity: 20, date: "2024-01-13", facilityId: "F-005", facilityName: "Ghanzi Primary Hospital", district: "Ghanzi", dispensingStaffId: "S-025", dispensingStaffName: "Nurse P. Kgosi", prescriptionId: "RX-4514", patientEncounterId: "E-1007", programme: "Malaria", batchNumber: "BT-2024-078", expiryDate: "2024-09-30" },
+]
+
+// Facility Inventory View
+export interface FacilityInventory {
+  facilityId: string
+  facilityName: string
+  district: District
+  medicines: {
+    medicineId: string
+    medicineName: string
+    stockOnHand: number
+    nearExpiry: number
+    expiryDate: string
+    lowStockAlert: boolean
+    reorderPoint: number
+    lastDispensedDate: string
+  }[]
+  lastUpdated: string
+}
+
+export const FACILITY_INVENTORY: FacilityInventory[] = [
+  {
+    facilityId: "F-001",
+    facilityName: "Princess Marina Hospital",
+    district: "South-East",
+    medicines: [
+      { medicineId: "1", medicineName: "Rifampicin 150mg", stockOnHand: 2250, nearExpiry: 0, expiryDate: "2025-06-15", lowStockAlert: false, reorderPoint: 1000, lastDispensedDate: "2024-01-15" },
+      { medicineId: "2", medicineName: "Isoniazid 100mg", stockOnHand: 400, nearExpiry: 150, expiryDate: "2024-03-20", lowStockAlert: true, reorderPoint: 500, lastDispensedDate: "2024-01-15" },
+      { medicineId: "8", medicineName: "Metformin 500mg", stockOnHand: 105, nearExpiry: 0, expiryDate: "2025-03-20", lowStockAlert: true, reorderPoint: 400, lastDispensedDate: "2024-01-14" },
+    ],
+    lastUpdated: "2024-01-15T08:30:00"
+  },
+  {
+    facilityId: "F-004",
+    facilityName: "Tsabong Primary Hospital",
+    district: "Kgalagadi",
+    medicines: [
+      { medicineId: "3", medicineName: "Pyrazinamide 500mg", stockOnHand: 50, nearExpiry: 50, expiryDate: "2024-02-10", lowStockAlert: true, reorderPoint: 200, lastDispensedDate: "2024-01-14" },
+      { medicineId: "1", medicineName: "Rifampicin 150mg", stockOnHand: 180, nearExpiry: 0, expiryDate: "2025-06-15", lowStockAlert: true, reorderPoint: 300, lastDispensedDate: "2024-01-13" },
+    ],
+    lastUpdated: "2024-01-13T14:20:00"
+  },
+]
+
+// ============================================
+// OUTBREAK/DISEASE SPREAD DETECTION
+// ============================================
+
+// Regional Dispensing Aggregation (for outbreak detection)
+export interface RegionalDispensingTrend {
+  district: District
+  period: string
+  programme: string
+  condition: string
+  dispensingCount: number
+  previousPeriodCount: number
+  changePercent: number
+  isSpike: boolean
+  isTrending: boolean
+}
+
+export const REGIONAL_DISPENSING_TRENDS: RegionalDispensingTrend[] = [
+  { district: "North-West", period: "2024-W02", programme: "Malaria", condition: "Malaria", dispensingCount: 245, previousPeriodCount: 142, changePercent: 72.5, isSpike: true, isTrending: true },
+  { district: "Kweneng", period: "2024-W02", programme: "TB", condition: "Tuberculosis", dispensingCount: 89, previousPeriodCount: 62, changePercent: 43.5, isSpike: true, isTrending: false },
+  { district: "Southern", period: "2024-W02", programme: "NCD", condition: "Hypertension", dispensingCount: 312, previousPeriodCount: 298, changePercent: 4.7, isSpike: false, isTrending: false },
+  { district: "Kgalagadi", period: "2024-W02", programme: "TB", condition: "Tuberculosis", dispensingCount: 34, previousPeriodCount: 28, changePercent: 21.4, isSpike: false, isTrending: true },
+  { district: "Central", period: "2024-W02", programme: "Malaria", condition: "Malaria", dispensingCount: 78, previousPeriodCount: 65, changePercent: 20.0, isSpike: false, isTrending: false },
+  { district: "Ghanzi", period: "2024-W02", programme: "Malaria", condition: "Malaria", dispensingCount: 156, previousPeriodCount: 88, changePercent: 77.3, isSpike: true, isTrending: true },
+]
+
+// Outbreak Alert
+export interface OutbreakAlert {
+  id: string
+  district: District
+  condition: string
+  severity: RiskLevel
+  type: "spike" | "trend" | "cluster"
+  description: string
+  affectedFacilities: number
+  dispensingIncrease: number
+  detectedAt: string
+  recommendedAction: string
+}
+
+export const OUTBREAK_ALERTS: OutbreakAlert[] = [
+  { id: "OB-001", district: "North-West", condition: "Malaria", severity: "critical", type: "spike", description: "72.5% increase in antimalarial dispensing detected", affectedFacilities: 8, dispensingIncrease: 72.5, detectedAt: "2024-01-14T06:00:00", recommendedAction: "Increase antimalarial stock allocation to North-West district" },
+  { id: "OB-002", district: "Ghanzi", condition: "Malaria", severity: "warning", type: "spike", description: "77.3% increase in antimalarial dispensing - seasonal pattern suspected", affectedFacilities: 4, dispensingIncrease: 77.3, detectedAt: "2024-01-14T06:00:00", recommendedAction: "Monitor closely and prepare emergency stock if needed" },
+  { id: "OB-003", district: "Kweneng", condition: "Tuberculosis", severity: "warning", type: "trend", description: "Unusual TB medicine consumption increase over 3 weeks", affectedFacilities: 12, dispensingIncrease: 43.5, detectedAt: "2024-01-12T12:00:00", recommendedAction: "Investigate potential TB outbreak; notify surveillance team" },
+]
+
+// Heatmap data for disease spread visualization
+export interface DistrictHeatmapData {
+  district: District
+  tb: number
+  malaria: number
+  hypertension: number
+  diabetes: number
+  outbreakRisk: RiskLevel
+  activeAlerts: number
+}
+
+export const DISTRICT_HEATMAP_DATA: DistrictHeatmapData[] = [
+  { district: "Central", tb: 45, malaria: 32, hypertension: 180, diabetes: 145, outbreakRisk: "good", activeAlerts: 0 },
+  { district: "Ghanzi", tb: 28, malaria: 156, hypertension: 65, diabetes: 48, outbreakRisk: "warning", activeAlerts: 1 },
+  { district: "Kgalagadi", tb: 34, malaria: 22, hypertension: 42, diabetes: 35, outbreakRisk: "warning", activeAlerts: 0 },
+  { district: "Kgatleng", tb: 38, malaria: 18, hypertension: 95, diabetes: 78, outbreakRisk: "good", activeAlerts: 0 },
+  { district: "Kweneng", tb: 89, malaria: 45, hypertension: 210, diabetes: 175, outbreakRisk: "warning", activeAlerts: 1 },
+  { district: "North-East", tb: 32, malaria: 28, hypertension: 88, diabetes: 72, outbreakRisk: "good", activeAlerts: 0 },
+  { district: "North-West", tb: 52, malaria: 245, hypertension: 120, diabetes: 98, outbreakRisk: "critical", activeAlerts: 1 },
+  { district: "South-East", tb: 65, malaria: 15, hypertension: 285, diabetes: 245, outbreakRisk: "good", activeAlerts: 0 },
+  { district: "Southern", tb: 72, malaria: 38, hypertension: 195, diabetes: 162, outbreakRisk: "warning", activeAlerts: 0 },
+]
