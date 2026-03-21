@@ -25,6 +25,135 @@ export const MEDICINE_CATEGORIES = {
 
 export type MedicineCategory = keyof typeof MEDICINE_CATEGORIES
 
+// NFC Tracking Data
+export interface NFCTag {
+  tagId: string
+  medicineId: string
+  medicineName: string
+  batchNumber: string
+  manufacturingDate: string
+  expiryDate: string
+  quantity: number
+  unit: string
+  nfcCode: string
+  scanned: boolean
+  lastScanned?: string
+  location?: string
+  facility?: string
+  status: "active" | "inactive" | "expired" | "damaged"
+  temperature?: number
+  humidity?: number
+}
+
+export const NFC_TAGS: NFCTag[] = [
+  {
+    tagId: "NFC-TB-001-001",
+    medicineId: "1",
+    medicineName: "Rifampicin 150mg",
+    batchNumber: "RIF-2024-001",
+    manufacturingDate: "2023-06-15",
+    expiryDate: "2026-06-15",
+    quantity: 5000,
+    unit: "tablets",
+    nfcCode: "04:96:8F:A2:42:26:80",
+    scanned: true,
+    lastScanned: "2024-01-15T09:30:00",
+    location: "Shelf A1",
+    facility: "CMS Gaborone",
+    status: "active",
+    temperature: 22,
+    humidity: 45,
+  },
+  {
+    tagId: "NFC-TB-002-001",
+    medicineId: "2",
+    medicineName: "Isoniazid 100mg",
+    batchNumber: "ISO-2024-002",
+    manufacturingDate: "2023-08-20",
+    expiryDate: "2026-08-20",
+    quantity: 3000,
+    unit: "tablets",
+    nfcCode: "04:A8:7F:B3:52:36:90",
+    scanned: true,
+    lastScanned: "2024-01-15T08:45:00",
+    location: "Shelf B2",
+    facility: "Princess Marina Hospital",
+    status: "active",
+    temperature: 21,
+    humidity: 48,
+  },
+  {
+    tagId: "NFC-TB-003-001",
+    medicineId: "3",
+    medicineName: "Pyrazinamide 500mg",
+    batchNumber: "PYR-2024-001",
+    manufacturingDate: "2023-11-10",
+    expiryDate: "2025-11-10",
+    quantity: 2500,
+    unit: "tablets",
+    nfcCode: "04:C2:5D:E1:78:42:A0",
+    scanned: false,
+    location: "Shelf C3",
+    facility: "Nyangabgwe Hospital",
+    status: "active",
+    temperature: 20,
+    humidity: 50,
+  },
+  {
+    tagId: "NFC-ANTI-001-001",
+    medicineId: "5",
+    medicineName: "Artemether-Lumefantrine",
+    batchNumber: "ART-2024-005",
+    manufacturingDate: "2023-09-01",
+    expiryDate: "2025-09-01",
+    quantity: 4500,
+    unit: "tablets",
+    nfcCode: "04:D3:6C:F2:89:53:B1",
+    scanned: true,
+    lastScanned: "2024-01-14T14:20:00",
+    location: "Shelf D1",
+    facility: "Maun General Hospital",
+    status: "active",
+    temperature: 23,
+    humidity: 46,
+  },
+  {
+    tagId: "NFC-CHRN-001-001",
+    medicineId: "8",
+    medicineName: "Metformin 500mg",
+    batchNumber: "MET-2024-010",
+    manufacturingDate: "2023-07-22",
+    expiryDate: "2026-07-22",
+    quantity: 6000,
+    unit: "tablets",
+    nfcCode: "04:E4:7D:03:9A:64:C2",
+    scanned: true,
+    lastScanned: "2024-01-15T10:15:00",
+    location: "Shelf E2",
+    facility: "Tsabong Hospital",
+    status: "active",
+    temperature: 22,
+    humidity: 47,
+  },
+  {
+    tagId: "NFC-TB-001-002",
+    medicineId: "1",
+    medicineName: "Rifampicin 150mg",
+    batchNumber: "RIF-2024-002",
+    manufacturingDate: "2023-09-05",
+    expiryDate: "2026-09-05",
+    quantity: 4000,
+    unit: "tablets",
+    nfcCode: "04:F5:8E:14:AB:75:D3",
+    scanned: false,
+    location: "Storage Room B",
+    facility: "CMS Gaborone",
+    status: "active",
+    temperature: 21,
+    humidity: 49,
+  },
+]
+
 // User roles
 export type UserRole = "cms" | "facility" | "logistics" | "clinician" | "surveillance" | "patient"
 

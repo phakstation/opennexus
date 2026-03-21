@@ -41,7 +41,9 @@ import {
   Clock,
   CalendarDays,
   ChevronRight,
+  Wifi,
 } from "lucide-react"
+import Link from "next/link"
 
 // Simulated facility-level stock (subset of national)
 const FACILITY_STOCK = MEDICINE_STOCK_DATA.slice(0, 6).map((med) => ({
@@ -304,6 +306,26 @@ export default function FacilityDashboardPage() {
               </CardHeader>
               <CardContent>
                 <AlertList alerts={facilityAlerts} maxItems={3} compact />
+              </CardContent>
+            </Card>
+
+            {/* NFC Tracking */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Wifi className="h-5 w-5 text-blue-600" />
+                  NFC Tracking
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  Track medicines using NFC tags for real-time identification
+                </p>
+                <Link href="/dashboard/facility/nfc-tracking">
+                  <Button className="w-full" variant="default">
+                    Open NFC Scanner
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
